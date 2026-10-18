@@ -1,0 +1,17 @@
+{
+    "name": "sidneydeus/module-featured-product",
+    "description": "Feature Product Module",
+    "type": "magento2-module",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0",
+        "magento/module-catalog": "104.0.*"
+    },
+    "autoload": {
+        "files": ["registration.php"],
+        "psr-4": {
+            "Sidneydeus\\FeaturedProduct\\": ""
+        }
+    }
+}
