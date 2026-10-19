@@ -81,17 +81,33 @@ Para abrir o storefront automaticamente: `ddev launch` (ou `ddev launch /admin_1
 
 > O caminho do admin (`admin_1bssu1`) é definido em `app/etc/env.php` (`backend.frontName`).
 
+### Credenciais de acesso (admin)
+
+| Usuário | Senha |
+| --- | --- |
+| `admin` | `admin123` |
+
+### Screenshots
+
+**Storefront**
+
+![Storefront](https://img.lightshot.app/91V_sGgnTdKFx_I0KuMPpA.png)
+
+**Admin**
+
+![Admin](https://img.lightshot.app/tzGYSaCISZOCkd07HwCZkg.png)
+
 ### Criar/alterar usuário do admin
 
 ```bash
 # criar
 ddev magento admin:user:create \
-  --admin-user=admin --admin-password=Admin123 \
+  --admin-user=admin --admin-password=admin123 \
   --admin-email=admin@example.com \
   --admin-firstname=Admin --admin-lastname=User
 
 # trocar a senha de um usuário existente
-ddev magento admin:user:change-password --username=admin --password=Admin123
+ddev magento admin:user:change-password --username=admin --password=admin123
 ```
 
 ## Módulo `Sidneydeus_FeaturedProduct`
