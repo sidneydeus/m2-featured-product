@@ -47,7 +47,8 @@ vendor/
 auth.json
 
 # Magento default
-/app/
+/app/*
+!/app/code/
 /bin/
 /generated/
 /lib/
