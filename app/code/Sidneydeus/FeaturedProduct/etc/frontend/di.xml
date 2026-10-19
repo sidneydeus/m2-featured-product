@@ -1,0 +1,18 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="featured-product-stock" xsi:type="string">
+                    Sidneydeus\FeaturedProduct\CustomerData\FeaturedProductStock
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Block\CustomerData">
+        <arguments>
+            <argument name="expirableSectionNames" xsi:type="array">
+                <item name="featured-product-stock" xsi:type="string">featured-product-stock</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,8 @@
+<div data-bind="visible: stock().product_id">
+    <span class="stock"
+          data-bind="css: { 'in-stock': stock().is_in_stock, 'out-of-stock': !stock().is_in_stock },
+                     text: stock().is_in_stock ? 'In Stock' : 'Out of Stock'"></span>
+    <!-- ko if: stock().is_in_stock && stock().qty > 0 -->
+    <span class="qty" data-bind="text: '(' + stock().qty + ' available)'"></span>
+    <!-- /ko -->
+</div>

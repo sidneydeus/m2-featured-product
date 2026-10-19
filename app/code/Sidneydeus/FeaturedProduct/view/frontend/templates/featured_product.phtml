@@ -1,18 +1,24 @@
 <?php
 /** @var \Sidneydeus\FeaturedProduct\Block\FeaturedProduct $block */
+if (!$block->isEnabled()) {
+    return;
+}
+
 $product = $block->getFeaturedProduct();
 if (!$product) {
     return;
 }
-$stockItem = $product->getExtensionAttributes()->getStockItem();
 ?>
 <div class="featured-product" data-product-id="<?= $block->escapeHtmlAttr($product->getId()) ?>">
     <div class="featured-product__content">
         <h2 class="featured-product__title"><?= $block->escapeHtml(__('Featured Product')) ?></h2>
         <div class="featured-product__info">
-            <div class="featured-product__image">
-                <?= $block->getImage($product, 'product_page_image_medium')->toHtml() ?>
-            </div>
+            <?php $productImage = $block->getImage($product, 'product_page_image_medium'); ?>
+            <?php if ($productImage): ?>
+                <div class="featured-product__image">
+                    <?= $productImage->toHtml() ?>
+                </div>
+            <?php endif; ?>
             <div class="featured-product__details">
                 <strong class="featured-product__name"><?= $block->escapeHtml($product->getName()) ?></strong>
                 <?php if ($product->getShortDescription()): ?>
@@ -21,16 +27,12 @@ $stockItem = $product->getExtensionAttributes()->getStockItem();
                 <div class="featured-product__price">
                     <?= $block->getProductPrice($product) ?>
                 </div>
-                <?php if ($stockItem): ?>
-                    <div class="featured-product__stock">
-                        <span class="stock <?= $stockItem->getIsInStock() ? 'in-stock' : 'out-of-stock' ?>">
-                            <?= $stockItem->getIsInStock() ? __('In Stock') : __('Out of Stock') ?>
-                        </span>
-                        <?php if ($stockItem->getIsInStock() && $stockItem->getQty()): ?>
-                            <span class="qty">(<?= $block->escapeHtml((int)$stockItem->getQty()) ?> <?= __('available') ?>)</span>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
+
+                <div class="featured-product__stock"
+                     data-bind="scope: 'featured-product-stock'">
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                </div>
+
                 <div class="featured-product__actions">
                     <a href="<?= $block->escapeUrl($product->getProductUrl()) ?>"
                        class="action primary tocart"
@@ -42,3 +44,19 @@ $stockItem = $product->getExtensionAttributes()->getStockItem();
         </div>
     </div>
 </div>
+
+<script type="text/x-magento-init">
+{
+    ".featured-product__stock": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "featured-product-stock": {
+                    "component": "Sidneydeus_FeaturedProduct/js/stock-observer",
+                    "template": "Sidneydeus_FeaturedProduct/featured-product-stock",
+                    "pollInterval": <?= (int)$block->getPollInterval() ?>
+                }
+            }
+        }
+    }
+}
+</script>
